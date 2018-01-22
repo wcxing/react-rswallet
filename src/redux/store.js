@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+// import thunk from 'redux-thunk'
 import middleware from './middleware'
 import rootReducer from './reducer'
 /**
@@ -13,7 +13,7 @@ import rootReducer from './reducer'
 /**
  * 使用 redux-thunk 和 fetch 测试异步action
  */
-let creatStoreWithMiddleware = applyMiddleware(thunk, middleware)(createStore)
+let creatStoreWithMiddleware = applyMiddleware(middleware)(createStore)
 const configureStore = () => {
   const store = creatStoreWithMiddleware(rootReducer)
   return store

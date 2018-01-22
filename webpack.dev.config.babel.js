@@ -79,12 +79,12 @@ let config = {
    * devServer ： 启动服务 ， 用浏览器打开 localhost:8080 （默认为8080端口）
    * */
   devServer: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        secure: false
-      }
-    },
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:8080',
+    //     secure: false
+    //   }
+    // },
     // host: '0.0.0.0',
     // open: true,
     publicPath: '/',

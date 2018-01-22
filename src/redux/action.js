@@ -47,7 +47,7 @@ export const getCurrentTime = () => {
 export const handelGetData = (param) => ({
   callApi: {
     type: FETCHGETTEST,
-    path: '/api/post',
+    path: '/user',
     method: 'POST',
     param
   }

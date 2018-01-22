@@ -21,7 +21,9 @@ router.get('/api/2', function *(next) {
 });
 
 router.post('/api/post', koaBody, function *(next) {
+    console.log('next', next)
     console.log('bbbb', this.request.body)
+    // this.body = this.request.body
     this.body = JSON.stringify(this.request.body)
 });
 
