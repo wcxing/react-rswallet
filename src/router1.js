@@ -29,6 +29,7 @@ class TestOne extends Component {
    */
   getCurrTime = () => {
     console.log('触发了点击')
+    console.log('获取到的全局变量__ENV__.domain', __ENV__)
     this.props.getCurrTime()
   }
 

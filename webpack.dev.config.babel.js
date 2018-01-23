@@ -40,6 +40,13 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 
 /**
+ * 开发环境为koa
+ * 生产环境为 ease mock
+ */
+import devConfig from './src/config/dev.env' 
+import prodConfig from './src/config/prod.env'
+
+/**
  * 代码分离
  * 1、入口起点（会导致各个bundle中有重复代码）
  * 2、防止重复 使用 commonsChunkPlugin 插件。将公共依赖模块提取到已有的入口chunk中，或者提取到一个新生成的chunk
@@ -79,14 +86,21 @@ let config = {
    * devServer ： 启动服务 ， 用浏览器打开 localhost:8080 （默认为8080端口）
    * */
   devServer: {
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:8080',
-    //     secure: false
-    //   }
-    // },
-    // host: '0.0.0.0',
-    // open: true,
+    /**
+     * 代理： 以/api开头的接口都会指向到target指向的地址，免去每次调用接口时url的拼接
+     * 本项目中使用 webpack.difineplugin插件 设置 __ENV__ 全局变量，在fetchApi 文件中动态拼接url，好处是可以适配不同环境下的打包
+     * 只需在 package.json 文件的script字段中配置相应打包环境参数 cross-env NODE_ENV = env_name 其中cross-env需要安装，可解决windows
+     * 系统中访问不到 NODE_ENV 的问题
+     */
+    /* proxy: {
+      '/api': {
+        target: 'http://localhost:3006',
+        secure: false,
+        changeOrigin: true,
+      }
+    }, */
+    host: '0.0.0.0',
+    open: true,
     publicPath: '/',
     // contentBase: './src', // 本地服务器所加载的页面所在的目录
     contentBase: path.resolve(__dirname, './src'),
@@ -210,6 +224,15 @@ let config = {
      */
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common'  // 指定公共 bundle 的名称
+    }),
+
+    /**
+     * DefinePlugin
+     * 设置 __ENV__ 全局变量
+     */
+    new webpack.DefinePlugin({
+      // __ENV__: process.env.NODE_ENV == 'prod' ? { domain: "'http://prod-api.rswallet.com:7046'" }  : { domain: "'http://test-api.rswallet.com:7046'" } 
+      __ENV__: process.env.NODE_ENV == 'prod' ? prodConfig : devConfig
     })
   ]
 }

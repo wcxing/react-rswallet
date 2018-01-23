@@ -8,7 +8,10 @@ import fetch from 'isomorphic-fetch'
  * 请求接口 url
  */
 // let configUrl = 'http://localhost:3006'  // koa mock 接口
-let configUrl = 'https://www.easy-mock.com/mock/5a152af8f64292527e65ff38/example' // ease-mock 接口
+// let configUrl = 'https://www.easy-mock.com/mock/5a152af8f64292527e65ff38/example' // ease-mock 接口
+let configUrl = __ENV__.domain // eslint-disable-line
+// let apiUrl = __ENV__.domain // eslint-disable-line
+// console.log('~~~~~~~~env~~~~~~~~', apiUrl)
 /**
  * 设置默认配置（请求头）
  */
@@ -19,7 +22,8 @@ const DEFAULT_OPTION = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
   },
-  credentials: 'include',
+  // credentials（凭证）值为include的时候，服务端的response的header的Access-Control-Allow-Origin不能设置为*通配符
+  // credentials: 'include',
   /**
    * 踩坑：在浏览器的network中可以看到返回数据，但是在控制台打印时总是看不到数据
    * 发起的是跨域请求，给fetch的参数设置为mode:"cors"，然后node那里加一句app.use(require('cors')());
@@ -99,8 +103,7 @@ export function fetchApi(url, option = {}, dataType = 'json') {
     let realUrl = configUrl + url
     console.log('请求入参', realOption)
     const res = await fetch(realUrl, realOption)
-    console.log('777777', res)
-    console.log('dataType', Response)
+    console.log('dataType', dataType)
     if (res.ok) {
       if (dataType.toUpperCase() === 'TEXT') {
         const text = await res.text()

@@ -21,12 +21,14 @@ export default thunk;
 import utils from '../utils'
 export default () => next => action => {
   let { callApi } = action
+  console.log('inmiddleware-action', action)
+  console.log('inmiddleware-next', next)
   if (!callApi || typeof callApi === 'function') {
     return next(action)
   }
   return utils.callApi(callApi).then(res => {
     next(res)
-    console.log('in middleware', res, 'next name', next)
+    console.log('in middleware-res', res, 'next name', next)
     return res
   }, err => {
     console.log('错误了。。。', err)
