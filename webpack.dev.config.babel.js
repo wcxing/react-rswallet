@@ -40,7 +40,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 
 /**
- * 开发环境为koa
+ * 开发环境为 koa
  * 生产环境为 ease mock
  */
 import devConfig from './src/config/dev.env' 
@@ -65,7 +65,7 @@ let config = {
   /**
    * 根据入口配置可分离打包文件
    * 缺点：会造成重复打包， 代码冗余
-   * 优化： 使用webpack的CommonChunkPlugin
+   * 优化：使用webpack的CommonChunkPlugin
    */
   entry: {
     babel: 'babel-polyfill',
@@ -89,8 +89,8 @@ let config = {
     /**
      * 代理： 以/api开头的接口都会指向到target指向的地址，免去每次调用接口时url的拼接
      * 本项目中使用 webpack.difineplugin插件 设置 __ENV__ 全局变量，在fetchApi 文件中动态拼接url，好处是可以适配不同环境下的打包
-     * 只需在 package.json 文件的script字段中配置相应打包环境参数 cross-env NODE_ENV = env_name 其中cross-env需要安装，可解决windows
-     * 系统中访问不到 NODE_ENV 的问题
+     * 只需在 package.json 文件的script字段中配置相应打包环境参数 cross-env NODE_ENV = env_name 
+     * 其中cross-env需要安装，可解决windows系统中访问不到 NODE_ENV 的问题
      */
     /* proxy: {
       '/api': {
@@ -99,7 +99,8 @@ let config = {
         changeOrigin: true,
       }
     }, */
-    host: '0.0.0.0',
+    host: 'localhost',
+    port: '3008',
     open: true,
     publicPath: '/',
     // contentBase: './src', // 本地服务器所加载的页面所在的目录

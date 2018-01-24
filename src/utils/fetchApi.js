@@ -9,7 +9,8 @@ import fetch from 'isomorphic-fetch'
  */
 // let configUrl = 'http://localhost:3006'  // koa mock 接口
 // let configUrl = 'https://www.easy-mock.com/mock/5a152af8f64292527e65ff38/example' // ease-mock 接口
-let configUrl = __ENV__.domain // eslint-disable-line
+// let configUrl = __ENV__.domain // eslint-disable-line
+let configUrl = 'http://localhost:3008'
 // let apiUrl = __ENV__.domain // eslint-disable-line
 // console.log('~~~~~~~~env~~~~~~~~', apiUrl)
 /**

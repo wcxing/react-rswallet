@@ -37,7 +37,7 @@ class TestOne extends Component {
    * 调用接口 从服务端获取数据
    */
   handelGetData = () => {
-    this.props.handelGetData({aaa: 123}).then(res => {
+    this.props.handelGetData().then(res => {
       console.log(3333, res)
     })
   }
